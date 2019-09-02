@@ -46,7 +46,7 @@ StegEmbed: A program that embeds and extracts text in and out of the pixels of a
 
 Usage:
 	java -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]
-							  [extract -i IMAGE -p PASSWORD]
+					[extract -i IMAGE -p PASSWORD]
 Arguments:
 	-h, --help	Display this message.
 	-v, --version	Display current version.
