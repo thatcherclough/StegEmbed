@@ -19,8 +19,7 @@ To extract embedded text, StegEmbed:
 - Output the text to a new text file
 
 ## Requirements
-- A Java JDK distribution must be installed and added to PATH.
-- Maven must be installed and added to PATH.
+- A Java JDK distribution must be installed and added to PATH with label JAVA_HOME.
 
 ## Compatibility
 StegEmbed is compatible with both Windows and Linux.
@@ -34,7 +33,12 @@ git clone https://github.com/ThatcherDev/StegEmbed.git
 cd StegEmbed
 
 # build StegEmbed with Maven
-mvn clean package
+# for Linux run
+chmod +x mvnw
+./mvnw clean package
+
+# for Windows run
+mvnw.cmd clean package
 ```
 
 Alternatively, you can download the jar from the [release page](https://github.com/ThatcherDev/StegEmbed/releases).
