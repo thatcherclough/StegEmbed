@@ -1,49 +1,57 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.8.RELEASE</version>
+		<relativePath/>
+	</parent>
 	<groupId>com.github.thatcherdev</groupId>
 	<artifactId>StegEmbed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>StegEmbed</name>
+	<description>A steganography program that can embed and extract text in and out of the pixels of an image</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-	   			<artifactId>maven-compiler-plugin</artifactId>
-	   			<version>3.8.1</version>
-	   			<configuration>
-		 			<source>1.8</source>
-		 			<target>1.8</target>
-	   			</configuration>
-	 		</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>ID</id>
-						<configuration>
-							<outputDirectory>${project.basedir}</outputDirectory>
-							<appendAssemblyId>false</appendAssemblyId>
-							<archive>
-								<manifest>
-									<mainClass>com.github.thatcherdev.stegembed.StegEmbed</mainClass>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<finalName>stegembed</finalName>
-						</configuration>
+						<id>stegembed</id>
 						<phase>package</phase>
+						<configuration>
+							<finalName>stegembed</finalName>
+							<mainClass>com.github.thatcherdev.stegembed.StegEmbed</mainClass>
+							<outputDirectory>${project.basedir}</outputDirectory>
+						</configuration>
 						<goals>
-							<goal>single</goal>
+							<goal>repackage</goal>
 						</goals>
 					</execution>
-				</executions>
+				 </executions>
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
