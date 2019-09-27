@@ -12,7 +12,7 @@
 	<artifactId>StegEmbed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>StegEmbed</name>
-	<description>A steganography program that can embed and extract text in and out of the pixels of an image</description>
+	<description>A steganography program that can embed and extract text in and out of the pixels of an image.</description>
 
 	<properties>
 		<java.version>1.8</java.version>
