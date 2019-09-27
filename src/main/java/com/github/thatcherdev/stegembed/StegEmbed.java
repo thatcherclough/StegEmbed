@@ -1,11 +1,11 @@
 package com.github.thatcherdev.stegembed;
 
-import java.math.BigInteger;
-import java.nio.file.Files;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.File;
 
 public class StegEmbed {
 
@@ -48,7 +48,7 @@ public class StegEmbed {
 				else if (mode.equals("extract"))
 					extract();
 			} catch (Exception e) {
-				if (e.toString().equals("java.lang.NegativeArraySizeException")
+				if (e.toString().contains("java.lang.NegativeArraySizeException")
 						|| e.toString().equals("java.util.zip.ZipException: incorrect header check"))
 					error("Incorrect password");
 				else
@@ -100,8 +100,8 @@ public class StegEmbed {
 				pixels.length, pixels[0].length);
 		int length = (byte) pixels[firstPixel[1][0]][firstPixel[0][0]];
 		byte[] bytes = new byte[length - 1];
-		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(),
-				length, pixels.length, pixels[0].length);
+		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(), length,
+				pixels.length, pixels[0].length);
 		System.out.println("Getting       embedded text");
 		for (int k = 1; k < length; k++)
 			bytes[k - 1] = (byte) pixels[randomPixels[1][k]][randomPixels[0][k]];
