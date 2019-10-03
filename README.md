@@ -18,6 +18,17 @@ To extract embedded text, StegEmbed:
 - Decompresses the text
 - Output the text to a new text file
 
+## Demo
+<a href="https://asciinema.org/a/0mT0ein8RmMjzounwxLP527qZ" target="_blank"><img src="https://asciinema.org/a/0mT0ein8RmMjzounwxLP527qZ.svg" width="600"/></a>
+
+Original image:
+
+<img src="./demo/original.png" alt="original" width="400"/>
+
+Embedded image:
+
+<img src="./demo/embedded.png" alt="embedded" width="400"/>
+
 ## Requirements
 - A Java JDK distribution must be installed and added to PATH.
 - The image used for embedding and extracting must be a '.png' image.
