@@ -105,7 +105,7 @@ public class StegEmbed {
 		System.out.println("Getting       embedded text");
 		for (int k = 1; k < length; k++)
 			bytes[k - 1] = (byte) pixels[randomPixels[1][k]][randomPixels[0][k]];
-		System.out.println("Decrpyting    embedded text");
+		System.out.println("Decrypting    embedded text");
 		byte[] decrypted = TextUtils.xorCrypt(bytes, password.getBytes());
 		System.out.println("Decompressing embedded text");
 		byte[] decompressed = TextUtils.decompress(decrypted);
