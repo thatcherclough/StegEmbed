@@ -42,11 +42,11 @@ public class TextUtils {
 	}
 
 	/**
-	 * Use XOR algorithm to encrypt/decrypt {@link input} with key {@link key}.
+	 * Use XOR algorith to encrypt/decrypt {@link input} with key {@link key}.
 	 *
-	 * @param input byte array to encrypt/decrypt
+	 * @param input byte array to encrypt/ecrypt
 	 * @param key   key to use to encrypt/decrypt
-	 * @return {@link input} encrypted/decrypted
+	 * @return {@link input} ecnrypted/decrypted
 	 */
 	public static byte[] xorCrypt(byte[] input, byte[] key) {
 		byte[] output = new byte[input.length];

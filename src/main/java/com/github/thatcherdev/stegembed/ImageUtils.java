@@ -49,7 +49,7 @@ public class ImageUtils {
 	 * @param numOfPixels number of random pixels to generate
 	 * @param height      height of image to get pixels of
 	 * @param width       width of image to get pixels of
-	 * @return pixels to use for embedding
+	 * @return pixels to use for emedding
 	 * @throws IOException
 	 */
 	public static int[][] getRandomPixels(int seed, int numOfPixels, int height, int width) throws IOException {
