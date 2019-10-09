@@ -13,7 +13,7 @@ public class StegEmbed {
 	private static String image;
 	private static String text;
 	private static String password;
-	private static String help = "StegEmbed: A program that embeds and extracts text in and out of the pixels of an image (1.2.0)\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n"
+	private static String help = "StegEmbed: A program that embeds and extracts text in and out of the pixels of an image (1.1.1)\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n"
 			+ "\t\t\t\t  [extract -i IMAGE -p PASSWORD]\nArguments:\n\t-h, --help	Display this message.\n\t-v, --version	Display current version.\n\t-t, --text	Specify text file to use for embedding.\n\t-i, --image	Specify image to use for embedding/extracting.\n\t-p, --password	Specify password to use for encrypting/decrypting when embedding/extracting.";
 
 	/*
