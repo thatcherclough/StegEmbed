@@ -13,13 +13,13 @@ public class StegEmbed {
 	private static String image;
 	private static String text;
 	private static String password;
-	private static String help = "StegEmbed: A program that embeds and extracts text in and out of the pixels of an image (1.0)\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n"
+	private static String help = "StegEmbed: A program that embeds and extracts text in and out of the pixels of an image (1.1.1)\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n"
 			+ "\t\t\t\t  [extract -i IMAGE -p PASSWORD]\nArguments:\n\t-h, --help	Display this message.\n\t-v, --version	Display current version.\n\t-t, --text	Specify text file to use for embedding.\n\t-i, --image	Specify image to use for embedding/extracting.\n\t-p, --password	Specify password to use for encrypting/decrypting when embedding/extracting.";
 
 	/*
 	 * Embed or extract text with given command line arguments.
 	 *
-	 * @param args command line argumants
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		try {
@@ -62,7 +62,7 @@ public class StegEmbed {
 
 	/**
 	 * Encrypt, compress, and embed bytes from {@link text} into image {@link image}
-	 * by pseudo randomly genrating pixels based on {@link password} and outputting
+	 * by pseudo randomly generating pixels based on {@link password} and outputting
 	 * pixels to new image file with name {@link output}.
 	 *
 	 * @throws IOException
@@ -88,7 +88,7 @@ public class StegEmbed {
 	}
 
 	/**
-	 * Extract, decrpyt, and decompress embedded text from {@link image} using
+	 * Extract, decrypt, and decompress embedded text from {@link image} using
 	 * password {@link password} and output text to 'output.txt'.
 	 *
 	 * @throws IOException
@@ -100,8 +100,8 @@ public class StegEmbed {
 				pixels.length, pixels[0].length);
 		int length = (byte) pixels[firstPixel[1][0]][firstPixel[0][0]];
 		byte[] bytes = new byte[length - 1];
-		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(), length,
-				pixels.length, pixels[0].length);
+		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(),
+				length, pixels.length, pixels[0].length);
 		System.out.println("Getting       embedded text");
 		for (int k = 1; k < length; k++)
 			bytes[k - 1] = (byte) pixels[randomPixels[1][k]][randomPixels[0][k]];
