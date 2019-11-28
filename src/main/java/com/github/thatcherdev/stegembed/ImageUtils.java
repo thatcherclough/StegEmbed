@@ -9,10 +9,10 @@ import javax.imageio.ImageIO;
 public class ImageUtils {
 
 	/**
-	 * Get pixels from image {@link file}.
+	 * Gets matrix of pixels from image with name {@link file}.
 	 *
 	 * @param file name of image
-	 * @return matrix of pixels from image {@link file}.
+	 * @return matrix of pixels from image with name {@link file}
 	 * @throws IOException
 	 */
 	public static int[][] getPixels(String file) throws IOException {
@@ -27,7 +27,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Write image {@link file} with pixels {@link pixels}.
+	 * Writes image with name {@link file} containing pixels {@link pixels}.
 	 *
 	 * @param pixels pixels of image to write
 	 * @param file   name of image to write
@@ -42,8 +42,11 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Use pseudo random number generation to get pixels to use for embedding based
-	 * on seed {@link seed}, {@link numOfPixels}, {@link height}, and {@link width}.
+	 * Uses pseudo random number generation to get pixels for embedding.
+	 * <p>
+	 * Gets {@numOfPixels} pixels from an image with height {@link height} and width
+	 * {@link width}. Uses seed {@link seed} for pseudo random number generation of
+	 * these pixels.
 	 *
 	 * @param seed        seed for pseudo random number generation
 	 * @param numOfPixels number of random pixels to generate
@@ -53,8 +56,6 @@ public class ImageUtils {
 	 * @throws IOException
 	 */
 	public static int[][] getRandomPixels(int seed, int numOfPixels, int height, int width) throws IOException {
-		if (numOfPixels > (height * width))
-			throw new IOException("Image too small to embed text");
 		int[][] pixels = new int[2][numOfPixels];
 		Random random = new Random(seed);
 		for (int k = 0; k < numOfPixels; k++) {
@@ -73,10 +74,10 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Check if matrix {@link pixels} already contains coordinates with x value
+	 * Checks if matrix {@link pixels} already contains coordinates with x value
 	 * {@link x} and y value {@link y}.
 	 *
-	 * @param pixels matrix to check
+	 * @param pixels matrix of pixels to check
 	 * @param x      x value
 	 * @param y      y value
 	 * @return if matrix {@link pixels} already contains coordinates with x value

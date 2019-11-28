@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 public class TextUtils {
 
 	/**
-	 * Compress byte array {@link uncompressed} using {@link compressor).
+	 * Compresses {@link uncompressed}.
 	 *
 	 * @param uncompressed byte array to compress
 	 * @return {@link uncompressed} compressed
@@ -25,7 +25,7 @@ public class TextUtils {
 	}
 
 	/**
-	 * Uncompress byte array {@link compressed} using {@link decompressor}.
+	 * Uncompress {@link compressed}.
 	 *
 	 * @param compressed byte array to decompress
 	 * @return {@link compressed} decompressed
@@ -42,7 +42,7 @@ public class TextUtils {
 	}
 
 	/**
-	 * Use XOR algorithm to encrypt/decrypt {@link input} with key {@link key}.
+	 * Uses XOR algorithm to encrypt/decrypt {@link input} with key {@link key}.
 	 *
 	 * @param input byte array to encrypt/decrypt
 	 * @param key   key to use to encrypt/decrypt
