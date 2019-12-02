@@ -13,11 +13,13 @@ public class StegEmbed {
 	private static String image;
 	private static String text;
 	private static String password;
-	private static String help = "StegEmbed: A program that embeds and extracts text in and out of the pixels of an image (1.2.0)\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n"
-			+ "\t\t\t\t  [extract -i IMAGE -p PASSWORD]\nArguments:\n\t-h, --help	Display this message.\n\t-v, --version	Display current version.\n\t-t, --text	Specify text file to use for embedding.\n\t-i, --image	Specify image to use for embedding/extracting.\n\t-p, --password	Specify password to use for encrypting/decrypting when embedding/extracting.";
+	final private static String help = "StegEmbed: A stenography program that can embed and extract text into and out of the pixels of an image (1.2.0)"
+			+ "\n\nUsage:\n\tjava -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]\n\t\t\t\t  [extract -i IMAGE -p PASSWORD]\n"
+			+ "Arguments:\n\t-h, --help	Display this message.\n\t-v, --version\tDisplay current version.\n\t-i, --image\tSpecify image to use for embedding/extracting.\n"
+			+ "\t-t, --text\tSpecify text file to use for embedding.\n\t-p, --password\tSpecify password to use for encrypting/decrypting when embedding/extracting.";
 
-	/*
-	 * Embed or extract text with given command line arguments.
+	/**
+	 * Starts StegEmbed based on command line arguments {@link args}.
 	 *
 	 * @param args command line arguments
 	 */
@@ -48,11 +50,7 @@ public class StegEmbed {
 				else if (mode.equals("extract"))
 					extract();
 			} catch (Exception e) {
-				if (e.toString().contains("java.lang.NegativeArraySizeException")
-						|| e.toString().equals("java.util.zip.ZipException: incorrect header check"))
-					error("Incorrect password");
-				else
-					error(e.getMessage());
+				e.printStackTrace();
 			}
 		} catch (Exception e) {
 			System.out.println(help);
@@ -61,26 +59,34 @@ public class StegEmbed {
 	}
 
 	/**
-	 * Encrypt, compress, and embed bytes from {@link text} into image {@link image}
-	 * by pseudo randomly generating pixels based on {@link password} and outputting
-	 * pixels to new image file with name {@link output}.
+	 * Embeds text into image.
+	 * <p>
+	 * Encrypts (using password {@link #password}) and compresses the bytes from
+	 * text file with name {@link #text}. Gets pixels from image with name
+	 * {@link #image} using {@link ImageUtils#getPixels(String)}, and uses
+	 * {@link ImageUtils#getRandomPixels(int, int, int, int)} to get pixels to embed
+	 * bytes from text into. Embed the bytes from text into pixels of the image and
+	 * outputs the new image to {@link output} using
+	 * {@link ImageUtils#writePixels(int[][], String)}.
 	 *
 	 * @throws IOException
 	 */
 	private static void embed() throws IOException {
 		System.out.println("Getting     '" + text + "'");
+		byte[] bytes = Files.readAllBytes(Paths.get(text));
 		System.out.println("Compressing '" + text + "'");
-		byte[] compressed = TextUtils.compress(Files.readAllBytes(Paths.get(text)));
+		byte[] compressed = TextUtils.compress(bytes);
 		System.out.println("Encrypting  '" + text + "'");
 		byte[] encrypted = TextUtils.xorCrypt(compressed, password.getBytes());
 		System.out.println("Getting     '" + image + "'");
 		int[][] pixels = ImageUtils.getPixels(image);
-		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(),
-				encrypted.length + 1, pixels.length, pixels[0].length);
-		pixels[randomPixels[1][0]][randomPixels[0][0]] = encrypted.length + 1;
 		System.out.println("Embedding   '" + text + "'");
+		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(),
+				encrypted.length + 2, pixels.length, pixels[0].length);
+		pixels[randomPixels[1][0]][randomPixels[0][0]] = Math.abs(password.hashCode() % 10000000);
+		pixels[randomPixels[1][1]][randomPixels[0][1]] = encrypted.length;
 		for (int k = 0; k < encrypted.length; k++)
-			pixels[randomPixels[1][k + 1]][randomPixels[0][k + 1]] = encrypted[k];
+			pixels[randomPixels[1][k + 2]][randomPixels[0][k + 2]] = encrypted[k];
 		String output = "output" + image.substring(image.lastIndexOf("."));
 		System.out.println("Writing     '" + output + "'");
 		ImageUtils.writePixels(pixels, output);
@@ -88,23 +94,30 @@ public class StegEmbed {
 	}
 
 	/**
-	 * Extract, decrypt, and decompress embedded text from {@link image} using
-	 * password {@link password} and output text to 'output.txt'.
+	 * Extracts text from image.
+	 * <p>
+	 * Gets pixels from image with name {@link #image} using
+	 * {@link ImageUtils#getPixels(String)}, and uses
+	 * {@link ImageUtils#getRandomPixels(int, int, int, int)} to get pixels to
+	 * extract text from. Decrypts (using password {@link #password}) and
+	 * decompresses the data from these pixels and writes it to 'output.txt'.
 	 *
 	 * @throws IOException
 	 */
 	private static void extract() throws IOException {
 		System.out.println("Getting       '" + image + "'");
 		int[][] pixels = ImageUtils.getPixels(image);
-		int[][] firstPixel = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(), 1,
+		int[][] firstTwoPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(), 2,
 				pixels.length, pixels[0].length);
-		int length = (byte) pixels[firstPixel[1][0]][firstPixel[0][0]];
-		byte[] bytes = new byte[length - 1];
+		if (Math.abs(password.hashCode() % 10000000) != (int) pixels[firstTwoPixels[1][0]][firstTwoPixels[0][0]])
+			throw new IOException("Incorrect password");
+		int length = (int) pixels[firstTwoPixels[1][1]][firstTwoPixels[0][1]];
+		byte[] bytes = new byte[length];
 		int[][] randomPixels = ImageUtils.getRandomPixels(new BigInteger(password.getBytes("US-ASCII")).intValue(),
-				length, pixels.length, pixels[0].length);
+				length + 2, pixels.length, pixels[0].length);
 		System.out.println("Getting       embedded text");
-		for (int k = 1; k < length; k++)
-			bytes[k - 1] = (byte) pixels[randomPixels[1][k]][randomPixels[0][k]];
+		for (int k = 0; k < length; k++)
+			bytes[k] = (byte) pixels[randomPixels[1][k + 2]][randomPixels[0][k + 2]];
 		System.out.println("Decrypting    embedded text");
 		byte[] decrypted = TextUtils.xorCrypt(bytes, password.getBytes());
 		System.out.println("Decompressing embedded text");
@@ -115,15 +128,5 @@ public class StegEmbed {
 		out.flush();
 		out.close();
 		System.out.println("Done.\n\nExtracted text outputted to 'output.txt'");
-	}
-
-	/**
-	 * Display 'An error occurred' followed by {@link errorMessage} and exit.
-	 *
-	 * @param errorMessage error message
-	 */
-	private static void error(String errorMessage) {
-		System.out.println("\nAn error occurred:\n" + errorMessage);
-		System.exit(0);
 	}
 }
