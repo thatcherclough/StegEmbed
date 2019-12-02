@@ -1,5 +1,5 @@
 # StegEmbed
-StegEmbed is a stenography program that can embed and extract text in and out of the pixels of an image.
+StegEmbed is a stenography program that can embed and extract text into and out of the pixels of an image.
 
 ## Features
 StegEmbed can both embed text into the pixels of an image, and extract previously embedded text from the pixels of an image.
@@ -13,7 +13,7 @@ To embed text, StegEmbed:
 
 To extract embedded text, StegEmbed:
 - Get the pixels from a given image.
-- Uses a pseudo random number generator and a given password to get the pixels with embedded the text.
+- Uses a pseudo random number generator and a given password as a seed to get the pixels with embedded the text.
 - Decrypts the text with a given password.
 - Decompresses the text.
 - Output the text to a new text file.
@@ -61,7 +61,7 @@ Alternatively, you can download the jar from the [release page](https://github.c
 ## Usage
 ```
 java -jar stegembed.jar
-StegEmbed: A stenography program that can embed and extract text in and out of the pixels of an image (1.0.0)
+StegEmbed: A stenography program that can embed and extract text into and out of the pixels of an image (1.0.0)
 
 Usage:
 	java -jar stegembed.jar   [-h] [-v] [embed -i IMAGE -t TEXTFILE -p PASSWORD]

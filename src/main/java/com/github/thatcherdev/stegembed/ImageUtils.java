@@ -44,9 +44,9 @@ public class ImageUtils {
 	/**
 	 * Uses pseudo random number generation to get pixels for embedding.
 	 * <p>
-	 * Gets {@numOfPixels} pixels from an image with height {@link height} and width
-	 * {@link width}. Uses seed {@link seed} for pseudo random number generation of
-	 * these pixels.
+	 * Gets {@link numOfPixels} pixels from an image with height {@link height} and
+	 * width {@link width}. Uses seed {@link seed} for pseudo random number
+	 * generation of these pixels.
 	 *
 	 * @param seed        seed for pseudo random number generation
 	 * @param numOfPixels number of random pixels to generate
