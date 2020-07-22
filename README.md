@@ -39,7 +39,7 @@ StegEmbed is compatible with Windows, Mac, and Linux.
 ## Installation
 ```
 # clone StegEmbed
-git clone https://github.com/ThatcherDev/StegEmbed.git
+git clone https://github.com/thatcherclough/StegEmbed.git
 
 # change the working directory to StegEmbed
 cd StegEmbed
@@ -56,7 +56,7 @@ chmod +x mvnw
 sh mvnw clean package
 ```
 
-Alternatively, you can download the jar from the [release page](https://github.com/ThatcherDev/StegEmbed/releases).
+Alternatively, you can download the jar from the [release page](https://github.com/thatcherclough/StegEmbed/releases).
 
 ## Usage
 ```
@@ -76,4 +76,4 @@ Arguments:
 
 ## License
 - [MIT](https://choosealicense.com/licenses/mit/)
-- Copyright 2019 ©️ ThatcherDev.
+- Copyright 2020 © Thatcher Clough.

@@ -1,4 +1,4 @@
-package com.github.thatcherdev.stegembed;
+package dev.thatcherclough.stegembed;
 
 import java.util.Random;
 import java.awt.image.BufferedImage;

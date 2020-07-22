@@ -7,7 +7,7 @@
 		<version>2.1.8.RELEASE</version>
 		<relativePath />
 	</parent>
-	<groupId>com.github.thatcherdev</groupId>
+	<groupId>dev.thatcherclough</groupId>
 	<artifactId>StegEmbed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>StegEmbed</name>
@@ -41,7 +41,7 @@
 						<phase>package</phase>
 						<configuration>
 							<finalName>stegembed</finalName>
-							<mainClass>com.github.thatcherdev.stegembed.StegEmbed</mainClass>
+							<mainClass>dev.thatcherclough.stegembed.StegEmbed</mainClass>
 							<outputDirectory>${project.basedir}</outputDirectory>
 						</configuration>
 						<goals>

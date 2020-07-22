@@ -1,5 +1,5 @@
 /target/
-/.settings/
-/*.jar
 .DS_Store
-/.vscode/
+/*.jar
+/.idea/
+StegEmbed.iml
